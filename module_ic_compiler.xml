@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_ic_compiler" default="compile.module.ic_compiler">
+  <dirname property="module.ic_compiler.basedir" file="${ant.file.module_ic_compiler}"/>
+  
+  <property name="module.jdk.home.ic_compiler" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.ic_compiler" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.ic_compiler" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.ic_compiler" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="ic_compiler.output.dir" value="${module.ic_compiler.basedir}/out/production/IC_COMPILER"/>
+  <property name="ic_compiler.testoutput.dir" value="${module.ic_compiler.basedir}/out/test/IC_COMPILER"/>
+  
+  <path id="ic_compiler.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ic_compiler.module.production.classpath">
+    <path refid="${module.jdk.classpath.ic_compiler}"/>
+    <path refid="library.jflex-1.6.0.classpath"/>
+  </path>
+  
+  <path id="ic_compiler.runtime.production.module.classpath">
+    <pathelement location="${ic_compiler.output.dir}"/>
+    <path refid="library.jflex-1.6.0.classpath"/>
+  </path>
+  
+  <path id="ic_compiler.module.classpath">
+    <path refid="${module.jdk.classpath.ic_compiler}"/>
+    <pathelement location="${ic_compiler.output.dir}"/>
+    <path refid="library.jflex-1.6.0.classpath"/>
+  </path>
+  
+  <path id="ic_compiler.runtime.module.classpath">
+    <pathelement location="${ic_compiler.testoutput.dir}"/>
+    <pathelement location="${ic_compiler.output.dir}"/>
+    <path refid="library.jflex-1.6.0.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ic_compiler">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.ic_compiler">
+    <patternset refid="excluded.from.module.ic_compiler"/>
+  </patternset>
+  
+  <path id="ic_compiler.module.sourcepath">
+    <dirset dir="${module.ic_compiler.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.ic_compiler" depends="compile.module.ic_compiler.production,compile.module.ic_compiler.tests" description="Compile module IC_COMPILER"/>
+  
+  <target name="compile.module.ic_compiler.production" depends="register.custom.compilers" description="Compile module IC_COMPILER; production classes">
+    <mkdir dir="${ic_compiler.output.dir}"/>
+    <javac2 destdir="${ic_compiler.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.ic_compiler}/javac">
+      <compilerarg line="${compiler.args.ic_compiler}"/>
+      <bootclasspath refid="ic_compiler.module.bootclasspath"/>
+      <classpath refid="ic_compiler.module.production.classpath"/>
+      <src refid="ic_compiler.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ic_compiler"/>
+    </javac2>
+    
+    <copy todir="${ic_compiler.output.dir}">
+      <fileset dir="${module.ic_compiler.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.ic_compiler.tests" depends="register.custom.compilers,compile.module.ic_compiler.production" description="compile module IC_COMPILER; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.ic_compiler" description="cleanup module">
+    <delete dir="${ic_compiler.output.dir}"/>
+    <delete dir="${ic_compiler.testoutput.dir}"/>
+  </target>
+</project>
