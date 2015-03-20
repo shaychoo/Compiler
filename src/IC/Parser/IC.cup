@@ -61,7 +61,12 @@ non terminal ICClass class;
 
 
 
-terminal PLUS, MINUS, MULT, DIV, LPAREN, RPAREN, SEMI, ASSIGN, GT, LT, GE, LE, LAND, LOR;
+terminal LP,RP,ASSIGN,BOOLEAN,BREAK,COMMA,CONTINUE,DIVIDE;
+terminal DOT,EQUAL,EXTENDS,FALSE,ELSE,GT,GTE,IF,INT,LAND;
+terminal LB,LCBR,LENGTH,LENG,LOR,LT,LTE,MINUS,MOD,MULTIPLY;
+terminal NEQUAL,NULL,PLUS,RB,RCBR,RETURN,SEMI,STATIC,CLASS;
+terminal THIS,TRUE,VOID,WHILE,STRING,CLASS_ID,IDENT;
+
 terminal READI, PRINT;
 terminal Integer NUMBER;
 terminal String VAR;
@@ -71,9 +76,9 @@ terminal Integer INTEGER;
 precedence left LOR;
 precedence left LAND;
 precedence left PLUS, MINUS;
-precedence left DIV, MULT;
+precedence left DIVIDE, MULTIPLY;
 precedence left MINUS;
-precedence left GT, LT, GE, LE;
+precedence left GT, LT, GTE, LTE;
 
 
 program ::= class_list:cl

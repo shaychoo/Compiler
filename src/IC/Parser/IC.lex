@@ -134,7 +134,7 @@ return yyline;
 
         {NUMBER}    { return new Token(sym.INTEGER ,yyline ,  yycolumn ,yytext()) ;}
         {CLASS_ID}  { return new Token(sym.CLASS_ID ,yyline ,  yycolumn ,yytext()) ;}
-        {IDENT}     {return new Token(sym.INDET,yyline ,  yycolumn,yytext()); }
+        {IDENT}     {return new Token(sym.IDENT,yyline ,  yycolumn,yytext()); }
         " "         {  }
         {NEW_LINE}  {  }
         . {throw new LexicalError("Error! " + yyline + ": Lexical error: " +yytext() ); }
