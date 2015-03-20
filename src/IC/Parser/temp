@@ -1,3 +1,96 @@
+package IC.Parser;
+
+import java_cup.runtime.*;
+import IC.AST.*;
+
+import java.util.LinkedList;
+import java.util.List;
+
+parser code  {:
+	/** Causes the parsr to print every token it reads.
+	 * This is useful for debugging.
+	 */
+	public boolean printTokens;
+
+	private Lexer lexer;
+
+	public Parser(Lexer lexer) {
+		super(lexer);
+		this.lexer = lexer;
+	}
+
+	public int getLine() {
+		return lexer.getLineNumber();
+	}
+
+	public void syntax_error(Symbol s) {
+		Token tok = (Token) s;
+		System.out.println("Line " + tok.getLine()+": Syntax error; unexpected " + tok);
+	}
+:}
+
+// This is just for debugging
+scan with {:
+	Token t = lexer.next_token();
+	if (printTokens)
+		System.out.println(t.getLine() + ":" + t);
+	return t;
+:};
+
+
+
+
+////////////////////////////////////////////
+// Symbol list (terminals and non-terminals)
+
+
+
+//////////////////////////
+// Precedence declarations
+
+//////////////
+// The grammar
+
+non terminal Program Program;
+non terminal Literal Literal;
+non terminal Expression expr;
+non terminal Statement statement;
+non terminal StatementsBlock statementsBlock;
+non terminal List<ICClass> class_list;
+non terminal ICClass class;
+
+
+
+terminal PLUS, MINUS, MULT, DIV, LPAREN, RPAREN, SEMI, ASSIGN, GT, LT, GE, LE, LAND, LOR;
+terminal READI, PRINT;
+terminal Integer NUMBER;
+terminal String VAR;
+terminal Integer INTEGER;
+
+
+precedence left LOR;
+precedence left LAND;
+precedence left PLUS, MINUS;
+precedence left DIV, MULT;
+precedence left MINUS;
+precedence left GT, LT, GE, LE;
+
+
+program ::= class_list:cl
+      {: RESULT = new Program(getLine(), cl); :}
+;
+
+class_list ::= class:c
+      {: RESULT = new LinkedList<ICClass>();
+         RESULT.add(c);
+      :}
+      | class_list:cl class:c
+      {: cl.add(c); RESULT = cl; :}
+;
+
+
+
+
 
 statementsBlock ::= statement:s
 	{: RESULT = new StatementsBlock(s); :}
