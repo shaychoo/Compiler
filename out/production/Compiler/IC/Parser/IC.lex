@@ -4,15 +4,15 @@ import java_cup.runtime.*;
 %%
 
 
+%cup
 %class Lexer
 %public
 %function next_token
-%function getLine
+
 %type Token
 %line
 %column
 %scanerror LexicalError
-%cup
 
 
 %state YYINITIAL
@@ -55,6 +55,11 @@ EMPTY_LINE = {NEW_LINE}+" "+{NEW_LINE}
 
 %{
 StringBuilder sb = new StringBuilder();
+
+public int getLineNumber()
+{
+return yyline;
+}
 
 %}
 

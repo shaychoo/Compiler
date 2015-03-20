@@ -1,86 +1,11 @@
-package IC.Parser;
 
-import IC.AST.*;
-
-////////////////////////////////////////////
-// Symbol list (terminals and non-terminals)
-
-//nonterminal Program Program;
-
-terminal         ASSIGN;
-terminal Integer INTEGER;
-
-
-//////////////////////////
-// Precedence declarations
-
-//////////////
-// The grammar
-
-Literal ::= INTEGER | NULL;
-
-
-
-/*
-package IC;
-
-import java_cup.runtime.*;
-
-parser code  {:
-	/** Causes the parsr to print every token it reads.
-	 * This is useful for debugging.
-	 */
-	public boolean printTokens;
-
-	private Lexer lexer;
-
-	public Parser(Lexer lexer) {
-		super(lexer);
-		this.lexer = lexer;
-	}
-
-	public int getLine() {
-		return lexer.getLineNumber();
-	}
-
-	public void syntax_error(Symbol s) {
-		Token tok = (Token) s;
-		System.out.println("Line " + tok.getLine()+": Syntax error; unexpected " + tok);
-	}
-:}
-
-// This is just for debugging
-scan with {:
-	Token t = lexer.next_token();
-	if (printTokens)
-		System.out.println(t.getLine() + ":" + t);
-	return t;
-:};
-
-terminal PLUS, MINUS, MULT, DIV, LPAREN, RPAREN, SEMI, ASSIGN, GT, LT, GE, LE, LAND, LOR;
-terminal READI, PRINT;
-terminal Integer NUMBER;
-terminal String VAR;
-terminal UMINUS;
-
-non terminal Expression expr;
-non terminal Stmt stmt;
-non terminal StmtList stmt_list;
-
-precedence left LOR;
-precedence left LAND;
-precedence left PLUS, MINUS;
-precedence left DIV, MULT;
-precedence left UMINUS;
-precedence left GT, LT, GE, LE;
-
-stmt_list ::= stmt:s
-	{: RESULT = new StmtList(s); :}
-	| stmt_list:sl stmt:s
+statementsBlock ::= statement:s
+	{: RESULT = new StatementsBlock(s); :}
+	| statementsBlock:sl statement:s
 	{: sl.addStmt(s); RESULT = sl; :}
 ;
 
-stmt ::= VAR:v ASSIGN expr:e SEMI
+statement ::= VAR:v ASSIGN expr:e SEMI
 	{: VarExpr ve = new VarExpr(v); RESULT = new AssignStmt(ve, e); :}
 	| PRINT LPAREN expr:e RPAREN SEMI
 	{: RESULT = new PrintStmt(e); :}
@@ -127,7 +52,7 @@ expr ::= expr:e1 PLUS:p expr:e2
 		   System.out.println("Reduced rule e1 >= e2 for e1=" + e1 + " and e2="+e2);
 		 :}
 		| MINUS expr:e1
-		{: RESULT = new UnaryOpExpr(e1, Operator.MINUS); :} %prec UMINUS
+		{: RESULT = new UnaryOpExpr(e1, Operator.MINUS); :} %prec MINUS
 		| LPAREN expr:e RPAREN
 		{: RESULT = e; :}
 		| NUMBER:n
@@ -139,4 +64,3 @@ expr ::= expr:e1 PLUS:p expr:e2
 ;
 
 
-*/

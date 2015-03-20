@@ -38,6 +38,10 @@ public class Token extends Symbol {
         return value  + "\t" + getTag(this.id) +"\t"+ line + ":" + this.column;
     }
 
+    public int getLine()
+    {
+        return line;
+    }
 
     public int getVal()
     {
