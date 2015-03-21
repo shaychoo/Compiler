@@ -11,6 +11,15 @@ public class PrettyPrinter implements Visitor {
 	private int depth = 0; // depth of indentation
 
 	private String ICFilePath;
+    protected  ASTNode root;
+
+    public PrettyPrinter(ASTNode root) {
+        this.root = root;
+    }
+
+    public void print() {
+        root.accept(this);
+    }
 
 	/**
 	 * Constructs a new pretty printer visitor.

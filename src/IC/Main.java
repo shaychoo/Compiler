@@ -67,8 +67,8 @@ public class Main
             StatementsBlock root = (StatementsBlock) parseSymbol.value;
 
             // Pretty-print the program to System.out
-           // PrettyPrinter printer = new PrettyPrinter(root);
-            //printer.print();
+            PrettyPrinter printer = new PrettyPrinter(root);
+            printer.print();
 
             // Interpret the program
             //SLPEvaluator evaluator = new SLPEvaluator(root);

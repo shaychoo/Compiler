@@ -51,8 +51,8 @@ scan with {:
 //////////////
 // The grammar
 
-non terminal Program Program;
-non terminal Literal Literal;
+non terminal Program program;
+non terminal Literal literal;
 non terminal Expression expr;
 non terminal Statement statement;
 non terminal StatementsBlock statementsBlock;
@@ -82,7 +82,7 @@ precedence left GT, LT, GTE, LTE;
 
 
 program ::= class_list:cl
-      {: RESULT = new Program(getLine(), cl); :}
+      {: RESULT = new Program( cl); :}
 ;
 
 class_list ::= class:c
