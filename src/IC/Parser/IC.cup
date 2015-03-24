@@ -58,14 +58,15 @@ non terminal Statement statement;
 non terminal StatementsBlock statementsBlock;
 non terminal List<ICClass> class_list;
 non terminal ICClass class;
+non terminal ClassContents classcontents;
 
 
 
 terminal LP,RP,ASSIGN,BOOLEAN,BREAK,COMMA,CONTINUE,DIVIDE;
 terminal DOT,EQUAL,EXTENDS,FALSE,ELSE,GT,GTE,IF,INT,LAND;
-terminal LB,LCBR,LENGTH,LENG,LOR,LT,LTE,MINUS,MOD,MULTIPLY;
+terminal LB,LCBR,LENGTH,LNEG,LOR,LT,LTE,MINUS,MOD,MULTIPLY;
 terminal NEQUAL,NULL,PLUS,RB,RCBR,RETURN,SEMI,STATIC,CLASS;
-terminal THIS,TRUE,VOID,WHILE,STRING,CLASS_ID,IDENT;
+terminal THIS,TRUE,VOID,WHILE,STRING,CLASS_ID,IDENT,NEW,QUOTE;
 
 terminal READI, PRINT;
 terminal Integer NUMBER;
@@ -93,3 +94,8 @@ class_list ::= class:c
       {: cl.add(c); RESULT = cl; :}
 ;
 
+
+class ::= CLASS CLASS_ID:className LCBR classcontents:cc RCBR
+      {: RESULT = new ICClass(parser.getLine(),name, cc.getFields(), cc.getMethods());
+      :}
+;

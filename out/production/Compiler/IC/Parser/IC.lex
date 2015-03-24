@@ -80,7 +80,7 @@ return yyline;
 
 <YYINITIAL> \" { yybegin(STRING);  sb = new StringBuilder(); }
 <STRING> [^\"] { sb.append(yytext()); }
-<STRING> \" {  yybegin(YYINITIAL); return new Token(sym.STRING ,yyline ,  yycolumn,sb.toString()); }
+<STRING> \" {  yybegin(YYINITIAL); return new Token(sym.QUOTE ,yyline ,  yycolumn,sb.toString()); }
 
 <YYINITIAL>{
 
@@ -107,7 +107,7 @@ return yyline;
         "["         { return new Token(sym.LB ,yyline ,  yycolumn,yytext()); }
         "{"         { return new Token(sym.LCBR ,yyline ,  yycolumn,yytext()); }
         "length"    { return new Token(sym.LENGTH ,yyline ,  yycolumn,yytext()); }
-        "!"         { return new Token(sym.LENG ,yyline ,  yycolumn,yytext()); }
+        "!"         { return new Token(sym.LNEG ,yyline ,  yycolumn,yytext()); }
         "||"        { return new Token(sym.LOR ,yyline ,  yycolumn,yytext()); }
         "<"         { return new Token(sym.LT ,yyline ,  yycolumn,yytext()); }
         "<="        { return new Token(sym.LTE ,yyline ,  yycolumn,yytext()); }
@@ -125,7 +125,9 @@ return yyline;
         "static"    { return new Token(sym.STATIC ,yyline ,  yycolumn,yytext()); }
 
 
+        "new"     { return new Token(sym.NEW ,yyline ,  yycolumn,yytext()); }
         "class"     { return new Token(sym.CLASS ,yyline ,  yycolumn,yytext()); }
+        "String"     { return new Token(sym.STRING ,yyline ,  yycolumn,yytext()); }
         "this"      { return new Token(sym.THIS ,yyline ,  yycolumn,yytext()); }
         "true"      { return new Token(sym.TRUE ,yyline ,  yycolumn,yytext()); }
         "void"      { return new Token(sym.VOID ,yyline ,  yycolumn,yytext()); }
@@ -134,7 +136,7 @@ return yyline;
 
         {NUMBER}    { return new Token(sym.INTEGER ,yyline ,  yycolumn ,yytext()) ;}
         {CLASS_ID}  { return new Token(sym.CLASS_ID ,yyline ,  yycolumn ,yytext()) ;}
-        {IDENT}     {return new Token(sym.INDET,yyline ,  yycolumn,yytext()); }
+        {IDENT}     {return new Token(sym.IDENT,yyline ,  yycolumn,yytext()); }
         " "         {  }
         {NEW_LINE}  {  }
         . {throw new LexicalError("Error! " + yyline + ": Lexical error: " +yytext() ); }

@@ -62,13 +62,14 @@ public class Main
             Parser parser = new Parser(scanner);
             parser.printTokens = printtokens;
 
+
             Symbol parseSymbol = parser.parse();
-            System.out.println("Parsed " + args[0] + " successfully!");
-            StatementsBlock root = (StatementsBlock) parseSymbol.value;
+            //System.out.println("Parsed " + args[0] + " successfully!");
+            //StatementsBlock root = (StatementsBlock) parseSymbol.value;
 
             // Pretty-print the program to System.out
-            PrettyPrinter printer = new PrettyPrinter(root);
-            printer.print();
+            //PrettyPrinter printer = new PrettyPrinter(root);
+            //printer.print();
 
             // Interpret the program
             //SLPEvaluator evaluator = new SLPEvaluator(root);
