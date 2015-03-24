@@ -1016,7 +1016,7 @@ return yyline;
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;
             zzDoEOF();
-              { 	return new Token(sym.EOF,yyline ,  yycolumn,yytext());
+              {     return new Token(sym.EOF,yyline ,  yycolumn,yytext());
  }
           } 
           else {

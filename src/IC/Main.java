@@ -2,6 +2,7 @@ package IC;
 
     //import IC.Parser.*;
 
+    import IC.AST.ASTNode;
     import IC.AST.PrettyPrinter;
     import IC.AST.StatementsBlock;
     import IC.Parser.*;
@@ -61,15 +62,19 @@ public class Main
             Lexer scanner = new Lexer(txtFile);
             Parser parser = new Parser(scanner);
             parser.printTokens = printtokens;
-
-
             Symbol parseSymbol = parser.parse();
-            //System.out.println("Parsed " + args[0] + " successfully!");
-            //StatementsBlock root = (StatementsBlock) parseSymbol.value;
+        try {
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+            System.out.println("Parsed " + args[0] + " successfully!");
+          // StatementsBlock root = (StatementsBlock) parseSymbol.value;
+           ASTNode root = (ASTNode) parseSymbol.value;
 
             // Pretty-print the program to System.out
-            //PrettyPrinter printer = new PrettyPrinter(root);
-            //printer.print();
+            PrettyPrinter printer = new PrettyPrinter(root);
+            printer.print();
 
             // Interpret the program
             //SLPEvaluator evaluator = new SLPEvaluator(root);

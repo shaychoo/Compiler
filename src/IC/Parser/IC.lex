@@ -22,7 +22,7 @@ import java_cup.runtime.*;
 %state STRING
 
 %eofval{
-	return new Token(sym.EOF,yyline ,  yycolumn,yytext());
+    return new Token(sym.EOF,yyline ,  yycolumn,yytext());
 %eofval}
 
 
@@ -139,6 +139,7 @@ return yyline;
         {IDENT}     {return new Token(sym.IDENT,yyline ,  yycolumn,yytext()); }
         " "         {  }
         {NEW_LINE}  {  }
+
         . {throw new LexicalError("Error! " + yyline + ": Lexical error: " +yytext() ); }
 
 }

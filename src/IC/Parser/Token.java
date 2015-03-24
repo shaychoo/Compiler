@@ -8,7 +8,7 @@ public class Token extends Symbol {
     private int id;
     private int line;
     private int column;
-    private String value;
+    public String value;
     private String IDName;
 
     public Token(int id, int line) {

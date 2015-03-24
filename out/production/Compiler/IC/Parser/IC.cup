@@ -5,6 +5,7 @@ import IC.AST.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 
 parser code  {:
 	/** Causes the parsr to print every token it reads.
@@ -58,6 +59,9 @@ non terminal Statement statement;
 non terminal StatementsBlock statementsBlock;
 non terminal List<ICClass> class_list;
 non terminal ICClass class;
+non terminal ClassContents classcontents;
+non terminal Field fields;
+non terminal Method method;
 
 
 
@@ -94,7 +98,52 @@ class_list ::= class:c
 ;
 
 
-class ::= CLASS CLASS_ID LCBR RCBR
-      {: 
+class ::=
+
+      CLASS CLASS_ID:className LCBR RCBR
+      {: RESULT = new ICClass(parser.getLine(),className == null ? "no name" : className.toString(), new ArrayList<Field>(), new ArrayList<Method>());
       :}
+        | CLASS CLASS_ID:className LCBR classcontents:cc RCBR
+      {: RESULT = new ICClass(parser.getLine(),className == null ? "no name" : className.toString(), cc.getFields(), cc.getMethods());
+      :}
+      |
+      CLASS CLASS_ID:className EXTENDS CLASS_ID:extendClassName  LCBR classcontents:cc  RCBR
+        {: RESULT = new ICClass(parser.getLine(), className.toString(),extendClassName.toString(),cc.getFields(), cc.getMethods());
+        :}
+        |
+      CLASS CLASS_ID:className EXTENDS CLASS_ID:extendClassName  LCBR   RCBR
+        {: RESULT = new ICClass(parser.getLine(),className.toString(),extendClassName.toString(), new ArrayList<Field>(), new ArrayList<Method>());
+        :}
+;
+
+
+
+
+classcontents ::=
+	fields:f {:
+		ClassContents cc = new ClassContents();
+		List<Field> fields = cc.getFields();
+		fields.add(f);
+		cc.setFields(fields);
+		RESULT = cc;
+	 :} |
+	 method:m {:
+	 //parser.getLine()
+		ClassContents cc = new ClassContents();
+		List<Method> methods = cc.getMethods();
+		methods.add(m);
+		cc.setMethods(methods);
+		RESULT = cc;
+	 :} |
+	 classcontents:cc fields:f {:
+	 	List<Field> fields = cc.getFields();
+	 	fields.add(f);
+	 	cc.setFields(fields);
+		RESULT = cc;
+	 :} | classcontents:cc method:m {:
+	 	List<Method> methods = cc.getMethods();
+		methods.add(m);
+		cc.setMethods(methods);
+		RESULT = cc;
+	 :}
 ;
