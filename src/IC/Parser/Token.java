@@ -1,14 +1,12 @@
 package IC.Parser;
 
-import java_cup.runtime.Symbol;
 
-public class Token extends Symbol {
+public class Token extends java_cup.runtime.Symbol {
 
 
     private int id;
     private int line;
     private int column;
-    public String value;
     private String IDName;
 
     public Token(int id, int line) {
@@ -46,6 +44,8 @@ public class Token extends Symbol {
     {
         return this.id;
     }
+
+
 
     public String getTag(int tagId) {
 

@@ -8,7 +8,6 @@ import java_cup.runtime.*;
 %class Lexer
 %public
 %function next_token
-
 %type Token
 %line
 %column
@@ -40,18 +39,6 @@ NEW_LINE =\r\n|\n|\r
 CLASS_ID = [A-Z]({ALPHA_NUMERIC})*
 EMPTY_LINE = {NEW_LINE}+" "+{NEW_LINE}
 ALPHA = [A-Za-z]
-
-DIGIT = [1-9]
-DIGIT0 = "0" | {DIGIT}
-NUMBER =  {DIGIT0} | {DIGIT}({DIGIT0})*
-
-
-
-ALPHA_NUMERIC = {ALPHA}|{DIGIT0}
-IDENT = {ALPHA}({ALPHA_NUMERIC})*
-NEW_LINE =\r\n|\n|\r
-CLASS_ID = [A-Z]({ALPHA_NUMERIC})*
-EMPTY_LINE = {NEW_LINE}+" "+{NEW_LINE}
 
 %{
 StringBuilder sb = new StringBuilder();

@@ -69,12 +69,13 @@ terminal LP,RP,ASSIGN,BOOLEAN,BREAK,COMMA,CONTINUE,DIVIDE;
 terminal DOT,EQUAL,EXTENDS,FALSE,ELSE,GT,GTE,IF,INT,LAND;
 terminal LB,LCBR,LENGTH,LNEG,LOR,LT,LTE,MINUS,MOD,MULTIPLY;
 terminal NEQUAL,NULL,PLUS,RB,RCBR,RETURN,SEMI,STATIC,CLASS;
-terminal THIS,TRUE,VOID,WHILE,STRING,CLASS_ID,IDENT,NEW,QUOTE;
+terminal THIS,TRUE,VOID,WHILE,STRING,IDENT,NEW,QUOTE;
 
 terminal READI, PRINT;
 terminal Integer NUMBER;
-terminal String VAR;
+terminal String VAR,CLASS_ID;
 terminal Integer INTEGER;
+terminal Field field;
 
 
 precedence left LOR;
@@ -99,9 +100,8 @@ class_list ::= class:c
 
 
 class ::=
-
-      CLASS CLASS_ID:className LCBR RCBR
-      {: RESULT = new ICClass(parser.getLine(),className == null ? "no name" : className.toString(), new ArrayList<Field>(), new ArrayList<Method>());
+      CLASS CLASS_ID:name LCBR RCBR
+      {: RESULT = new ICClass(parser.getLine(),name == null ? "no name" : name.toString(), new ArrayList<Field>(), new ArrayList<Method>());
       :}
         | CLASS CLASS_ID:className LCBR classcontents:cc RCBR
       {: RESULT = new ICClass(parser.getLine(),className == null ? "no name" : className.toString(), cc.getFields(), cc.getMethods());
@@ -146,4 +146,10 @@ classcontents ::=
 		cc.setMethods(methods);
 		RESULT = cc;
 	 :}
+;
+
+
+field ::= INT IDENT:varName SEMI {:
+    RESULT = new Field(INT , varName);
+:}
 ;

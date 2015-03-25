@@ -18,7 +18,8 @@ public class PrettyPrinter implements Visitor {
     }
 
     public void print() {
-        root.accept(this);
+        System.out.println(root.accept(this));
+
     }
 
 	/**
@@ -50,7 +51,7 @@ public class PrettyPrinter implements Visitor {
 		output.append("Abstract Syntax Tree: " + ICFilePath + "\n");
 		for (ICClass icClass : program.getClasses())
 			output.append(icClass.accept(this));
-        return output.toString();
+		return output.toString();
 	}
 
 	public Object visit(ICClass icClass) {
