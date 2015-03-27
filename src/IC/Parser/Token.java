@@ -45,7 +45,7 @@ public class Token extends java_cup.runtime.Symbol {
         return this.id;
     }
 
-
+    public String getTokenValue () { return this.value.toString(); }
 
     public String getTag(int tagId) {
 

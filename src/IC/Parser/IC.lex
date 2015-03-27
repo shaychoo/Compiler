@@ -61,7 +61,8 @@ return yyline;
 
 
 <YYINITIAL> "/*" { yybegin(COMMENTS); }
-<COMMENTS> . { }
+<COMMENTS> .|\n { }
+<COMMENTS> <<EOF>>  {throw new LexicalError("Error!  you have unclosed comment!" );  }
 <COMMENTS> "*/" { yybegin(YYINITIAL); }
 
 

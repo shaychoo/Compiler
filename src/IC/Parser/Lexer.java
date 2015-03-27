@@ -143,7 +143,7 @@ public @SuppressWarnings(value={"all"}) class Lexer implements java_cup.runtime.
     "\1\31\1\32\1\33\1\7\1\34\2\7\1\35\1\36"+
     "\1\37\1\40\1\41\1\42\2\7\1\43\1\44\1\45"+
     "\1\46\1\47\1\50\1\51\1\52\1\53\1\54\1\55"+
-    "\1\56\5\13\1\57\61\13\2\0\3\13\1\60\1\0"+
+    "\1\56\5\13\1\57\61\13\1\0\4\13\1\60\1\0"+
     "\50\13\63\0\13\61\1\62\47\61\1\0\3\7\2\0"+
     "\1\7\10\0\10\7\1\0\4\7\1\0\4\7\4\0"+
     "\2\7\11\0\3\7\2\0\2\10\64\0\1\13\56\0"+
@@ -1016,8 +1016,15 @@ return yyline;
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;
             zzDoEOF();
+            switch (zzLexicalState) {
+            case COMMENTS: {
+              throw new LexicalError("Error!  you have unclosed comment!" );
+            }
+            case 134: break;
+            default:
               {     return new Token(sym.EOF,yyline ,  yycolumn,yytext());
  }
+            }
           } 
           else {
             zzScanError(ZZ_NO_MATCH);

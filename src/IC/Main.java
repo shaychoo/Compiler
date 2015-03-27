@@ -50,8 +50,7 @@ public class Main
             if (args.length == 2) {
                 if (args[1].equals("-printtokens")) {
                     printtokens = true;
-                }
-                else {
+                } else {
                     printUsage();
                     System.exit(-1);
                 }
@@ -63,26 +62,24 @@ public class Main
             Parser parser = new Parser(scanner);
             parser.printTokens = printtokens;
             Symbol parseSymbol = parser.parse();
-        try {
 
-        }catch (Exception e){
-            e.printStackTrace();
+
+
+                System.out.println("Parsed " + args[0] + " successfully!");
+                // StatementsBlock root = (StatementsBlock) parseSymbol.value;
+                ASTNode root = (ASTNode) parseSymbol.value;
+
+                // Pretty-print the program to System.out
+                PrettyPrinter printer = new PrettyPrinter(root);
+                printer.print();
+
+                // Interpret the program
+                //SLPEvaluator evaluator = new SLPEvaluator(root);
+                //evaluator.evaluate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-            System.out.println("Parsed " + args[0] + " successfully!");
-          // StatementsBlock root = (StatementsBlock) parseSymbol.value;
-           ASTNode root = (ASTNode) parseSymbol.value;
-
-            // Pretty-print the program to System.out
-            PrettyPrinter printer = new PrettyPrinter(root);
-            printer.print();
-
-            // Interpret the program
-            //SLPEvaluator evaluator = new SLPEvaluator(root);
-            //evaluator.evaluate();
-        } catch (Exception e) {
-            System.out.print(e);
-        }
-    }
 
         /** Prints usage information about this application to System.out
          */

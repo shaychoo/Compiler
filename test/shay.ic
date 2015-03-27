@@ -1,3 +1,14 @@
 class Clxzassxzxzxzi {
 int a;
+
+void foo() {
+int a = 7;
+
+while(true)
+{
+//int a;
+}
+
+}
+
 }
