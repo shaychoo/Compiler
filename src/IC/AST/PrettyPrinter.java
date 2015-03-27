@@ -435,4 +435,15 @@ public class PrettyPrinter implements Visitor {
 		--depth;
 		return output.toString();
 	}
+
+    public Object visit(IntType intType) {
+        StringBuffer output = new StringBuffer();
+
+        indent(output, intType);
+        output.append("Declaration of Int field: " + intType.getName());
+        ++depth;
+       // output.append(intType.getType().accept(this));
+        --depth;
+        return output.toString();
+    }
 }
