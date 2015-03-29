@@ -251,6 +251,18 @@ public class PrettyPrinter implements Visitor {
 		return output.toString();
 	}
 
+    public Object visit(WhileStatementsBlock whileStatementsBlock) {
+        StringBuffer output = new StringBuffer();
+
+        indent(output, whileStatementsBlock);
+        output.append("While statement");
+        depth += 2;
+        for (Statement statement : whileStatementsBlock.getStatements())
+            output.append(statement.accept(this));
+        depth -= 2;
+        return output.toString();
+    }
+
 	public Object visit(LocalVariable localVariable) {
 		StringBuffer output = new StringBuffer();
 

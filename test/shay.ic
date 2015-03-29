@@ -2,10 +2,7 @@ class Clxzassxzxzxzi {
 int a;
 
 void foo() {
-int a = 7;
-int b;
-int c;
-
+int a;
 while(true)
 {
 int a;
