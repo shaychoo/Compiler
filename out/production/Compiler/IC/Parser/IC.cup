@@ -35,7 +35,7 @@ parser code {:
 scan with {:
 	Token t = lexer.next_token();
 	if (printTokens)
-		System.out.println(t.getLine() + ":" + t.getVal());
+		System.out.println(t.getLine() + ":" + t.getTokenValue());
 	return t;
 :};
 
@@ -193,8 +193,7 @@ formals ::= formal:fo {:
 
 
 
-type ::= INT {:
-		RESULT = new PrimitiveType(parser.getLine(), DataTypes.INT);:} |
+type ::= INT {:RESULT = new PrimitiveType(parser.getLine(), DataTypes.INT);:} |
 	    STRING {: RESULT = new PrimitiveType(parser.getLine(), DataTypes.STRING);:} |
 	    BOOLEAN{: RESULT = new PrimitiveType(parser.getLine(), DataTypes.BOOLEAN);:} |
 	    CLASS_ID:c {: RESULT = new UserType(parser.getLine(), c); :} |

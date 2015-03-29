@@ -3,10 +3,13 @@ int a;
 
 void foo() {
 int a = 7;
+int b;
+int c;
 
 while(true)
 {
-//int a;
+int a;
+int b;
 }
 
 }
